@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Books List</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Books and Their Authors</h1>
+  </header>
+
+  <main>
+    <a href="/books/new" class="btn">Create New Book</a> <!-- Button for Creating a New Book -->
+
+    <table class="styled-table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Publication Date</th>
+        <th>Author</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- Loop through books -->
+      <tr th:each="book : ${books}">
+        <td th:text="${book.id}">1</td>
+        <td th:text="${book.title}">Book Title</td>
+        <td th:text="${book.publicationDate}">2023-01-01</td>
+        <td th:text="${book.author.name}">Author Name</td>
+        <td>
+          <a th:href="@{/books/edit/{id}(id=${book.id})}" class="btn-edit">Edit</a> <!-- Edit Button -->
+          <form th:action="@{/books/delete/{id}(id=${book.id})}" method="post" style="display:inline;">
+            <button type="submit" class="btn-delete">Delete</button> <!-- Delete Button -->
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <a href="/" class="btn">Back to Home</a> <!-- Back to Home Button -->
+  </main>
+
+  <footer>
+    <p>&copy; 2023 Author Application</p>
+  </footer>
+</div>
+</body>
+</html>

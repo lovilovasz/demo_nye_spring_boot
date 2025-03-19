@@ -1,52 +1,42 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.Author;
-import com.example.demo.domain.Book;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import com.example.demo.exception.NoSuchEntityException;
+import com.example.demo.repository.AuthorRepository;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthorService {
 
+  @Autowired
+  private AuthorRepository authorRepository;
+
   public List<Author> getAllAuthors() {
-    return authors;
+    return authorRepository.findAll();
   }
 
-  private List<Author> authors = new ArrayList<>(List.of(
-      Author.builder()
-          .id(UUID.randomUUID())
-          .name("Name1")
-          .dateOfBirth(LocalDate.of(1965,10,10))
-          .build(),
-      Author.builder()
-          .id(UUID.randomUUID())
-          .name("Name2")
-          .dateOfBirth(LocalDate.of(1985,6,10))
-          .build(),
-      Author.builder()
-          .id(UUID.randomUUID())
-          .name("Name3")
-          .dateOfBirth(LocalDate.of(1980,8,25))
-          .build()
-  ));
-
   public void save(Author author) {
-    authors.add(author);
+    authorRepository.save(author);
   }
 
   public void edit(Author author) {
-    deleteById(author.getId());
-    save(author);
+    authorRepository.save(author);
   }
 
   public Author findById(UUID id) {
-    return authors.stream().filter(author -> author.getId().equals(id)).toList().get(0);
+    Optional<Author> optionalAuthor = authorRepository.findById(id);
+    if(optionalAuthor.isPresent()) {
+      return optionalAuthor.get();
+    } else {
+      throw new NoSuchEntityException("There was no author with id: " + id);
+    }
   }
 
   public void deleteById(UUID id) {
-    authors = new ArrayList<>(authors.stream().filter(author -> !author.getId().equals(id)).toList());
+    authorRepository.deleteById(id);
   }
 }

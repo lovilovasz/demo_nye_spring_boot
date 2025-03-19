@@ -1,0 +1,1 @@
+insert into author (id, name, date_of_birth) values ('cfff8f37-5dae-47df-bf86-4e216fe3eaee', 'Lovasz Kristof', '1999-06-10');

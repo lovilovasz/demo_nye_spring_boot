@@ -19,12 +19,12 @@ public class AuthorService {
     return authorRepository.findAll();
   }
 
-  public void save(Author author) {
-    authorRepository.save(author);
+  public Author save(Author author) {
+    return authorRepository.save(author);
   }
 
-  public void edit(Author author) {
-    authorRepository.save(author);
+  public Author edit(Author author) {
+    return authorRepository.save(author);
   }
 
   public Author findById(UUID id) {

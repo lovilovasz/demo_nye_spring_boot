@@ -2,7 +2,7 @@ package com.example.demo.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.example.demo.domain.Author;
@@ -15,13 +15,10 @@ import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-//@ExtendWith(MockitoExtension.class)
 class AuthorServiceTest {
 
   @Mock
@@ -63,7 +60,7 @@ class AuthorServiceTest {
   void findByIdWhenAuthorFound() {
     //GIVEN
     UUID id = UUID.randomUUID();
-    Author expectedAuthor =  Author.builder()
+    Author expectedAuthor = Author.builder()
         .id(id)
         .name("name1")
         .dateOfBirth(LocalDate.now())
@@ -98,5 +95,46 @@ class AuthorServiceTest {
     assertEquals(exceptionMessage, exception.getMessage());
 
   }
+
+  @Test
+  void deleteByIDHappyPath() {
+    //GIVEN
+    UUID id = UUID.randomUUID();
+    //WHEN
+    underTest.deleteById(id);
+    //THEN
+    verify(authorRepositoryMock).deleteById(id);
+  }
+
+  @Test
+  void saveHappyPath() {
+    //GIVEN
+    Author expectedAuthor = Author.builder()
+        .id(UUID.randomUUID())
+        .name("Kovács Ágnes")
+        .dateOfBirth(LocalDate.now())
+        .build();
+    when(authorRepositoryMock.save(expectedAuthor)).thenReturn(expectedAuthor);
+    //WHEN
+    Author result = underTest.save(expectedAuthor);
+    //THEN
+    assertEquals(expectedAuthor, result);
+  }
+
+  @Test
+  void editHappyPath() {
+    //GIVEN
+    Author expectedAuthor = Author.builder()
+        .id(UUID.randomUUID())
+        .name("Kovács Ágnes")
+        .dateOfBirth(LocalDate.now())
+        .build();
+    when(authorRepositoryMock.save(expectedAuthor)).thenReturn(expectedAuthor);
+    //WHEN
+    Author result = underTest.save(expectedAuthor);
+    //THEN
+    assertEquals(expectedAuthor, result);
+  }
+
 
 }

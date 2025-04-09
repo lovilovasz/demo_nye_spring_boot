@@ -32,7 +32,9 @@ public class BookService {
     if (optionalBook.isPresent()) {
       return optionalBook.get();
     } else {
-      throw new NoSuchEntityException("There was no book found for this id: " + id);
+      throw new NoSuchEntityException(
+          "There was no book found for this id: " + id
+      );
     }
   }
 

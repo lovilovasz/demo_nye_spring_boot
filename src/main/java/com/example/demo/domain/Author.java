@@ -32,7 +32,9 @@ public class Author {
   private LocalDate dateOfBirth;
 
   // One-to-Many relationship with Book, mapped by "author"
-  @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "author",
+      cascade = CascadeType.ALL,
+      orphanRemoval = true)
   private List<Book> books;
 }
 

@@ -29,7 +29,7 @@ public class AuthorService {
 
   public Author findById(UUID id) {
     Optional<Author> optionalAuthor = authorRepository.findById(id);
-    if(optionalAuthor.isPresent()) {
+    if (optionalAuthor.isPresent()) {
       return optionalAuthor.get();
     } else {
       throw new NoSuchEntityException("There was no author with id: " + id);

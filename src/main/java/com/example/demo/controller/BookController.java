@@ -36,7 +36,7 @@ public class BookController {
   @GetMapping("/new")
   public String createBookForm(Model model) {
     model.addAttribute("book", new Book());
-    model.addAttribute("authors", authorService.getAllAuthors()); // Authors list for dropdown
+    model.addAttribute("authors", authorService.getAllAuthors());
     return "books/create-book"; // Updated template path
   }
 
@@ -44,7 +44,7 @@ public class BookController {
   @PostMapping
   public String saveBook(@ModelAttribute Book book) {
     bookService.save(book);
-    return "redirect:/books/list"; // Redirect to updated /books/list after saving
+    return "redirect:/books/list";
   }
 
   // GET: Show Edit Book Page
@@ -52,7 +52,7 @@ public class BookController {
   public String editBookForm(@PathVariable UUID id, Model model) {
     Book book = bookService.findById(id);
     model.addAttribute("book", book);
-    model.addAttribute("authors", authorService.getAllAuthors()); // Authors list for dropdown
+    model.addAttribute("authors", authorService.getAllAuthors());
     return "books/edit-book"; // Updated template path
   }
 
@@ -60,13 +60,13 @@ public class BookController {
   @PostMapping("/edit")
   public String updateBook(@ModelAttribute Book book) {
     bookService.edit(book);
-    return "redirect:/books/list"; // Redirect to updated /books/list after updating
+    return "redirect:/books/list";
   }
 
   // POST: Delete Book
   @PostMapping("/delete/{id}")
   public String deleteBook(@PathVariable UUID id) {
     bookService.deleteById(id);
-    return "redirect:/books/list"; // Redirect to updated /books/list after deleting
+    return "redirect:/books/list";
   }
 }

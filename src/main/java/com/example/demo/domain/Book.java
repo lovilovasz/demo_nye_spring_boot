@@ -13,7 +13,6 @@ import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Generated;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -34,6 +33,6 @@ public class Book {
 
   // Many-to-One relationship with Author
   @ManyToOne(fetch = FetchType.LAZY) // Fetch author lazily by default
-  @JoinColumn(name = "author_id", nullable = false) // Foreign key column in the Book table
+  @JoinColumn(name = "author_id", nullable = false)
   private Author author;
 }

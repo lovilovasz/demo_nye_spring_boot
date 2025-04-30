@@ -23,3 +23,12 @@ jobs:
 
       - name: Maven verify
         run: mvn verify
+
+      - name: Package the code
+        run: mvn package
+
+      - name: Upload the packaged code
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-jar
+          path: target/demo_nye_spring_boot-0.0.1-SNAPSHOT.jar

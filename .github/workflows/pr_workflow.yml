@@ -18,14 +18,8 @@ jobs:
       - name: Install java
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '23'
           distribution: 'temurin'
 
-      - name: Build
-        run: mvn build
-
-      - name: Test
-        run: mvn test
-
-      - name: something for test
-        run: echo "Hello World!"
+      - name: Maven verify
+        run: mvn verify
